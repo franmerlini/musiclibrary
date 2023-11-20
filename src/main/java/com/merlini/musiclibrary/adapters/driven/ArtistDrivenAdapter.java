@@ -21,7 +21,7 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
   public Artist createArtist(Artist artist) {
     try {
       ArtistEntity artistEntity = artistPersistenceMapper.artistToArtistEntity(artist);
-      ArtistEntity savedArtistEntity = this.artistRepository.save(artistEntity);
+      ArtistEntity savedArtistEntity = artistRepository.save(artistEntity);
 
       return artistPersistenceMapper.artistEntityToArtist(savedArtistEntity);
     } catch (Exception e) {
@@ -32,7 +32,7 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
   @Override
   public Artist getArtistById(Integer id) {
     try {
-      Optional<ArtistEntity> artistEntity = this.artistRepository.findById(id);
+      Optional<ArtistEntity> artistEntity = artistRepository.findById(id);
 
       if (artistEntity.isEmpty()) {
         throw new EntityNotFoundException("Artist not found.");
@@ -49,14 +49,14 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
   @Override
   public Artist updateArtist(Integer id, Artist artist) {
     try {
-      Optional<ArtistEntity> artistEntity = this.artistRepository.findById(id);
+      Optional<ArtistEntity> artistEntity = artistRepository.findById(id);
 
       if (artistEntity.isEmpty()) {
         throw new EntityNotFoundException("Artist not found.");
       }
 
       ArtistEntity toUpdateArtistEntity = artistPersistenceMapper.artistToArtistEntity(artist);
-      ArtistEntity updatedArtistEntity = this.artistRepository.save(toUpdateArtistEntity);
+      ArtistEntity updatedArtistEntity = artistRepository.save(toUpdateArtistEntity);
 
       return artistPersistenceMapper.artistEntityToArtist(updatedArtistEntity);
     } catch (EntityNotFoundException e) {
@@ -69,13 +69,13 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
   @Override
   public void deleteArtist(Integer id) {
     try {
-      boolean exists = this.artistRepository.existsById(id);
+      boolean exists = artistRepository.existsById(id);
 
       if (!exists) {
         throw new EntityNotFoundException("Artist not found.");
       }
 
-      this.artistRepository.deleteById(id);
+      artistRepository.deleteById(id);
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {
@@ -86,7 +86,7 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
   @Override
   public List<Artist> getAllArtists() {
     try {
-      Iterable<ArtistEntity> artistEntities = this.artistRepository.findAll();
+      Iterable<ArtistEntity> artistEntities = artistRepository.findAll();
 
       return stream(artistEntities.spliterator(), false)
           .map(artistPersistenceMapper::artistEntityToArtist)
