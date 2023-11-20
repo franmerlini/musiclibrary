@@ -41,7 +41,7 @@ public class GenreRestDriverAdapter {
 
   @PatchMapping("/{id}")
   public ResponseEntity<?> updateGenre(@PathVariable int id,
-                                       @RequestBody GenreRequest genreRequest) {
+                                       @RequestBody @Valid GenreRequest genreRequest) {
     Genre genre = this.genreRestMapper.toGenre(genreRequest);
     Genre updatedGenre = this.genreDriverPort.updateGenre(id, genre);
     return ResponseEntity.ok(this.genreRestMapper.toGenreResponse(updatedGenre));

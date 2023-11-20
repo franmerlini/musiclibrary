@@ -41,7 +41,7 @@ public class ArtistRestDriverAdapter {
 
   @PatchMapping("/{id}")
   public ResponseEntity<?> updateArtist(@PathVariable int id,
-                                        @RequestBody ArtistRequest artistRequest) {
+                                        @RequestBody @Valid ArtistRequest artistRequest) {
     Artist artist = this.artistRestMapper.toArtist(artistRequest);
     Artist updatedArtist = this.artistDriverPort.updateArtist(id, artist);
     return ResponseEntity.ok(this.artistRestMapper.toArtistResponse(updatedArtist));
