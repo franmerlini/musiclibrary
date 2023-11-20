@@ -28,35 +28,35 @@ public class AlbumRestDriverAdapter {
 
   @PostMapping
   public ResponseEntity<AlbumResponse> createAlbum(@RequestBody @Valid AlbumRequest albumRequest) {
-    Album album = this.albumRestMapper.toAlbum(albumRequest);
-    Album createdAlbum = this.albumDriverPort.createAlbum(album);
+    Album album = albumRestMapper.toAlbum(albumRequest);
+    Album createdAlbum = albumDriverPort.createAlbum(album);
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.albumRestMapper.toAlbumResponse(createdAlbum));
+        .body(albumRestMapper.toAlbumResponse(createdAlbum));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<AlbumResponse> getAlbumById(@PathVariable int id) {
-    Album album = this.albumDriverPort.getAlbumById(id);
-    return ResponseEntity.ok(this.albumRestMapper.toAlbumResponse(album));
+    Album album = albumDriverPort.getAlbumById(id);
+    return ResponseEntity.ok(albumRestMapper.toAlbumResponse(album));
   }
 
   @PatchMapping("/{id}")
   public ResponseEntity<AlbumResponse> updateAlbum(@PathVariable int id,
                                                    @RequestBody @Valid AlbumRequest albumRequest) {
-    Album album = this.albumRestMapper.toAlbum(albumRequest);
-    Album updatedAlbum = this.albumDriverPort.updateAlbum(id, album);
-    return ResponseEntity.ok(this.albumRestMapper.toAlbumResponse(updatedAlbum));
+    Album album = albumRestMapper.toAlbum(albumRequest);
+    Album updatedAlbum = albumDriverPort.updateAlbum(id, album);
+    return ResponseEntity.ok(albumRestMapper.toAlbumResponse(updatedAlbum));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<AlbumResponse> deleteAlbum(@PathVariable int id) {
-    this.albumDriverPort.deleteAlbum(id);
+    albumDriverPort.deleteAlbum(id);
     return ResponseEntity.noContent().build();
   }
 
   @GetMapping
   public ResponseEntity<List<AlbumResponse>> getAllAlbums() {
-    List<Album> albums = this.albumDriverPort.getAllAlbums();
+    List<Album> albums = albumDriverPort.getAllAlbums();
     return ResponseEntity.ok(albums.stream().map(albumRestMapper::toAlbumResponse).toList());
   }
 }

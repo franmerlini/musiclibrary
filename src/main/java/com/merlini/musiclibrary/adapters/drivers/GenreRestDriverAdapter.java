@@ -28,35 +28,35 @@ public class GenreRestDriverAdapter {
 
   @PostMapping
   public ResponseEntity<GenreResponse> createGenre(@RequestBody @Valid GenreRequest genreRequest) {
-    Genre genre = this.genreRestMapper.toGenre(genreRequest);
-    Genre createdGenre = this.genreDriverPort.createGenre(genre);
+    Genre genre = genreRestMapper.toGenre(genreRequest);
+    Genre createdGenre = genreDriverPort.createGenre(genre);
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.genreRestMapper.toGenreResponse(createdGenre));
+        .body(genreRestMapper.toGenreResponse(createdGenre));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<GenreResponse> getGenreById(@PathVariable int id) {
-    Genre genre = this.genreDriverPort.getGenreById(id);
-    return ResponseEntity.ok(this.genreRestMapper.toGenreResponse(genre));
+    Genre genre = genreDriverPort.getGenreById(id);
+    return ResponseEntity.ok(genreRestMapper.toGenreResponse(genre));
   }
 
   @PatchMapping("/{id}")
   public ResponseEntity<GenreResponse> updateGenre(@PathVariable int id,
                                                    @RequestBody @Valid GenreRequest genreRequest) {
-    Genre genre = this.genreRestMapper.toGenre(genreRequest);
-    Genre updatedGenre = this.genreDriverPort.updateGenre(id, genre);
-    return ResponseEntity.ok(this.genreRestMapper.toGenreResponse(updatedGenre));
+    Genre genre = genreRestMapper.toGenre(genreRequest);
+    Genre updatedGenre = genreDriverPort.updateGenre(id, genre);
+    return ResponseEntity.ok(genreRestMapper.toGenreResponse(updatedGenre));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<GenreResponse> deleteGenre(@PathVariable int id) {
-    this.genreDriverPort.deleteGenre(id);
+    genreDriverPort.deleteGenre(id);
     return ResponseEntity.noContent().build();
   }
 
   @GetMapping
   public ResponseEntity<List<GenreResponse>> getAllGenres() {
-    List<Genre> genres = this.genreDriverPort.getAllGenres();
+    List<Genre> genres = genreDriverPort.getAllGenres();
     return ResponseEntity.ok(genres.stream().map(genreRestMapper::toGenreResponse).toList());
   }
 }

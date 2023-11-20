@@ -29,36 +29,36 @@ public class MediaTypeRestDriverAdapter {
   @PostMapping
   public ResponseEntity<MediaTypeResponse> createMediaType(
       @RequestBody @Valid MediaTypeRequest mediaTypeRequest) {
-    MediaType mediaType = this.mediaTypeRestMapper.toMediaType(mediaTypeRequest);
-    MediaType createdMediaType = this.mediaTypeDriverPort.createMediaType(mediaType);
+    MediaType mediaType = mediaTypeRestMapper.toMediaType(mediaTypeRequest);
+    MediaType createdMediaType = mediaTypeDriverPort.createMediaType(mediaType);
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.mediaTypeRestMapper.toMediaTypeResponse(createdMediaType));
+        .body(mediaTypeRestMapper.toMediaTypeResponse(createdMediaType));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<MediaTypeResponse> getMediaTypeById(@PathVariable int id) {
-    MediaType mediaType = this.mediaTypeDriverPort.getMediaTypeById(id);
-    return ResponseEntity.ok(this.mediaTypeRestMapper.toMediaTypeResponse(mediaType));
+    MediaType mediaType = mediaTypeDriverPort.getMediaTypeById(id);
+    return ResponseEntity.ok(mediaTypeRestMapper.toMediaTypeResponse(mediaType));
   }
 
   @PatchMapping("/{id}")
   public ResponseEntity<MediaTypeResponse> updateMediaType(@PathVariable int id,
                                                            @RequestBody
                                                            @Valid MediaTypeRequest mediaTypeRequest) {
-    MediaType mediaType = this.mediaTypeRestMapper.toMediaType(mediaTypeRequest);
-    MediaType updatedMediaType = this.mediaTypeDriverPort.updateMediaType(id, mediaType);
-    return ResponseEntity.ok(this.mediaTypeRestMapper.toMediaTypeResponse(updatedMediaType));
+    MediaType mediaType = mediaTypeRestMapper.toMediaType(mediaTypeRequest);
+    MediaType updatedMediaType = mediaTypeDriverPort.updateMediaType(id, mediaType);
+    return ResponseEntity.ok(mediaTypeRestMapper.toMediaTypeResponse(updatedMediaType));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<MediaTypeResponse> deleteMediaType(@PathVariable int id) {
-    this.mediaTypeDriverPort.deleteMediaType(id);
+    mediaTypeDriverPort.deleteMediaType(id);
     return ResponseEntity.noContent().build();
   }
 
   @GetMapping
   public ResponseEntity<List<MediaTypeResponse>> getAllMediaTypes() {
-    List<MediaType> mediaTypes = this.mediaTypeDriverPort.getAllMediaTypes();
+    List<MediaType> mediaTypes = mediaTypeDriverPort.getAllMediaTypes();
     return ResponseEntity.ok(
         mediaTypes.stream().map(mediaTypeRestMapper::toMediaTypeResponse).toList());
   }

@@ -29,36 +29,36 @@ public class ArtistRestDriverAdapter {
   @PostMapping
   public ResponseEntity<ArtistResponse> createArtist(
       @RequestBody @Valid ArtistRequest artistRequest) {
-    Artist artist = this.artistRestMapper.toArtist(artistRequest);
-    Artist createdArtist = this.artistDriverPort.createArtist(artist);
+    Artist artist = artistRestMapper.toArtist(artistRequest);
+    Artist createdArtist = artistDriverPort.createArtist(artist);
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.artistRestMapper.toArtistResponse(createdArtist));
+        .body(artistRestMapper.toArtistResponse(createdArtist));
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<ArtistResponse> getArtistById(@PathVariable int id) {
-    Artist artist = this.artistDriverPort.getArtistById(id);
-    return ResponseEntity.ok(this.artistRestMapper.toArtistResponse(artist));
+    Artist artist = artistDriverPort.getArtistById(id);
+    return ResponseEntity.ok(artistRestMapper.toArtistResponse(artist));
   }
 
   @PatchMapping("/{id}")
   public ResponseEntity<ArtistResponse> updateArtist(@PathVariable int id,
                                                      @RequestBody
                                                      @Valid ArtistRequest artistRequest) {
-    Artist artist = this.artistRestMapper.toArtist(artistRequest);
-    Artist updatedArtist = this.artistDriverPort.updateArtist(id, artist);
-    return ResponseEntity.ok(this.artistRestMapper.toArtistResponse(updatedArtist));
+    Artist artist = artistRestMapper.toArtist(artistRequest);
+    Artist updatedArtist = artistDriverPort.updateArtist(id, artist);
+    return ResponseEntity.ok(artistRestMapper.toArtistResponse(updatedArtist));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<ArtistResponse> deleteArtist(@PathVariable int id) {
-    this.artistDriverPort.deleteArtist(id);
+    artistDriverPort.deleteArtist(id);
     return ResponseEntity.noContent().build();
   }
 
   @GetMapping
   public ResponseEntity<List<ArtistResponse>> getAllArtists() {
-    List<Artist> artists = this.artistDriverPort.getAllArtists();
+    List<Artist> artists = artistDriverPort.getAllArtists();
     return ResponseEntity.ok(artists.stream().map(artistRestMapper::toArtistResponse).toList());
   }
 }
