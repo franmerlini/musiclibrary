@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ArtistRestMapper {
-  Artist toArtist(ArtistRequest genreRequest);
+  Artist toArtist(ArtistRequest artistRequest);
 
   ArtistResponse toArtistResponse(Artist artist);
 }
