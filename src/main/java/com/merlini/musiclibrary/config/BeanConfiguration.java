@@ -1,11 +1,15 @@
 package com.merlini.musiclibrary.config;
 
+import com.merlini.musiclibrary.adapters.driven.AlbumDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.ArtistDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.GenreDrivenAdapter;
+import com.merlini.musiclibrary.adapters.driven.mappers.AlbumPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.ArtistPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.GenrePersistenceMapper;
+import com.merlini.musiclibrary.adapters.driven.repositories.AlbumRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.ArtistRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.GenreRepository;
+import com.merlini.musiclibrary.domain.services.AlbumService;
 import com.merlini.musiclibrary.domain.services.ArtistService;
 import com.merlini.musiclibrary.domain.services.GenreService;
 import org.springframework.context.annotation.Bean;
@@ -37,5 +41,19 @@ public class BeanConfiguration {
   @Bean
   public ArtistService artistService(ArtistDrivenAdapter artistDrivenAdapter) {
     return new ArtistService(artistDrivenAdapter);
+  }
+
+  @Bean
+  public AlbumDrivenAdapter albumDrivenAdapter(
+      AlbumRepository albumRepository,
+      AlbumPersistenceMapper albumPersistenceMapper,
+      ArtistRepository artistRepository
+  ) {
+    return new AlbumDrivenAdapter(albumRepository, albumPersistenceMapper, artistRepository);
+  }
+
+  @Bean
+  public AlbumService albumService(AlbumDrivenAdapter albumDrivenAdapter) {
+    return new AlbumService(albumDrivenAdapter);
   }
 }
