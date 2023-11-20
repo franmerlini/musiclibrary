@@ -10,7 +10,7 @@ public interface GenreDrivenPort {
 
   Genre updateGenre(Integer id, Genre genre);
 
-  boolean deleteGenre(Integer id);
+  void deleteGenre(Integer id);
 
   List<Genre> getAllGenres();
 }

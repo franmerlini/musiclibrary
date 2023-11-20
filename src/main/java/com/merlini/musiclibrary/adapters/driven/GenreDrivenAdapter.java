@@ -67,7 +67,7 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   }
 
   @Override
-  public boolean deleteGenre(Integer id) {
+  public void deleteGenre(Integer id) {
     try {
       boolean exists = this.genreRepository.existsById(id);
 
@@ -76,8 +76,6 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
       }
 
       this.genreRepository.deleteById(id);
-
-      return true;
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {

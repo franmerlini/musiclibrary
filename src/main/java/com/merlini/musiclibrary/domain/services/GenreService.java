@@ -26,8 +26,8 @@ public class GenreService implements GenreDriverPort {
   }
 
   @Override
-  public boolean deleteGenre(Integer id) {
-    return genreDrivenPort.deleteGenre(id);
+  public void deleteGenre(Integer id) {
+    genreDrivenPort.deleteGenre(id);
   }
 
   @Override
