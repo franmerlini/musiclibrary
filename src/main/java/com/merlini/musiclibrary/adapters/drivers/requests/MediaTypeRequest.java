@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediaTypeRequest {
-  @NotNull(message = "Media type name is mandatory.")
-  @NotBlank(message = "Media type name is mandatory.")
+  @NotNull(message = "Media type name is required.")
+  @NotBlank(message = "Media type name is required.")
   private String name;
 }

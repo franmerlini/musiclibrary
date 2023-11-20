@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenreRequest {
-  @NotNull(message = "Genre name is mandatory.")
-  @NotBlank(message = "Genre name is mandatory.")
+  @NotNull(message = "Genre name is required.")
+  @NotBlank(message = "Genre name is required.")
   private String name;
 }

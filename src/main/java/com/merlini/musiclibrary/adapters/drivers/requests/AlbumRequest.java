@@ -15,11 +15,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AlbumRequest {
-  @NotNull(message = "Album title is mandatory.")
-  @NotBlank(message = "Album title is mandatory.")
+  @NotNull(message = "Album title is required.")
+  @NotBlank(message = "Album title is required.")
   private String title;
 
   @Valid
-  @NotNull(message = "Artist is mandatory.")
+  @NotNull(message = "Artist is required.")
   private ArtistRequest artist;
 }
