@@ -14,7 +14,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtistRequest {
-  @NotNull(message = "Artist name is mandatory.")
-  @NotBlank(message = "Artist name is mandatory.")
+  @NotNull(message = "Artist ID is mandatory.")
+  private Integer id;
+
+  @NotNull(message = "Artist name is mandatory.", groups = ArtistRequest.class)
+  @NotBlank(message = "Artist name is mandatory.", groups = ArtistRequest.class)
   private String name;
 }
