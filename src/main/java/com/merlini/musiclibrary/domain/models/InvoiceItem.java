@@ -12,9 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvoiceItem {
-  private int id;
+  private Integer id;
   private Invoice invoice;
   private Track track;
-  private float unitPrice;
-  private int quantity;
+  private Float unitPrice;
+  private Integer quantity;
 }

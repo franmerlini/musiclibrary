@@ -12,13 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Track {
-  private int id;
+  private Integer id;
   private String name;
   private Album album;
   private MediaType mediaType;
   private Genre genre;
   private String composer;
-  private int milliseconds;
-  private int bytes;
-  private float unitPrice;
+  private Integer milliseconds;
+  private Integer bytes;
+  private Float unitPrice;
 }

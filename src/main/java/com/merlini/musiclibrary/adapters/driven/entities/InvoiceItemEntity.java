@@ -24,7 +24,7 @@ public class InvoiceItemEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "InvoiceLineId")
-  private int id;
+  private Integer id;
 
   @ManyToOne
   @JoinColumn(name = "InvoiceId")
@@ -36,9 +36,9 @@ public class InvoiceItemEntity {
 
   @Basic
   @Column(name = "UnitPrice")
-  private float unitPrice;
+  private Float unitPrice;
 
   @Basic
   @Column(name = "Quantity")
-  private int quantity;
+  private Integer quantity;
 }

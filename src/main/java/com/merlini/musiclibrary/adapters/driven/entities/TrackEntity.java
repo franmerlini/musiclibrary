@@ -24,7 +24,7 @@ public class TrackEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "TrackId")
-  private int id;
+  private Integer id;
 
   @Basic
   @Column(name = "Name")
@@ -48,13 +48,13 @@ public class TrackEntity {
 
   @Basic
   @Column(name = "Milliseconds")
-  private int milliseconds;
+  private Integer milliseconds;
 
   @Basic
   @Column(name = "Bytes")
-  private int bytes;
+  private Integer bytes;
 
   @Basic
   @Column(name = "UnitPrice")
-  private float unitPrice;
+  private Float unitPrice;
 }
