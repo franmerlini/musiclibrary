@@ -6,6 +6,7 @@ import com.merlini.musiclibrary.adapters.driven.CustomerDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.EmployeeDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.GenreDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.InvoiceDrivenAdapter;
+import com.merlini.musiclibrary.adapters.driven.InvoiceItemDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.MediaTypeDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.PlaylistDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.TrackDrivenAdapter;
@@ -14,6 +15,7 @@ import com.merlini.musiclibrary.adapters.driven.mappers.ArtistPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.CustomerPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.EmployeePersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.GenrePersistenceMapper;
+import com.merlini.musiclibrary.adapters.driven.mappers.InvoiceItemPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.InvoicePersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.MediaTypePersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.PlaylistPersistenceMapper;
@@ -23,6 +25,7 @@ import com.merlini.musiclibrary.adapters.driven.repositories.ArtistRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.CustomerRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.EmployeeRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.GenreRepository;
+import com.merlini.musiclibrary.adapters.driven.repositories.InvoiceItemRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.InvoiceRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.MediaTypeRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.PlaylistRepository;
@@ -32,6 +35,7 @@ import com.merlini.musiclibrary.domain.services.ArtistService;
 import com.merlini.musiclibrary.domain.services.CustomerService;
 import com.merlini.musiclibrary.domain.services.EmployeeService;
 import com.merlini.musiclibrary.domain.services.GenreService;
+import com.merlini.musiclibrary.domain.services.InvoiceItemService;
 import com.merlini.musiclibrary.domain.services.InvoiceService;
 import com.merlini.musiclibrary.domain.services.MediaTypeService;
 import com.merlini.musiclibrary.domain.services.PlaylistService;
@@ -161,5 +165,18 @@ public class BeanConfiguration {
   @Bean
   public PlaylistService playlistService(PlaylistDrivenAdapter playlistDrivenAdapter) {
     return new PlaylistService(playlistDrivenAdapter);
+  }
+
+  @Bean
+  public InvoiceItemDrivenAdapter invoiceItemDrivenAdapter(
+      InvoiceItemRepository invoiceItemRepository,
+      InvoiceItemPersistenceMapper invoiceItemPersistenceMapper
+  ) {
+    return new InvoiceItemDrivenAdapter(invoiceItemRepository, invoiceItemPersistenceMapper);
+  }
+
+  @Bean
+  public InvoiceItemService invoiceItemService(InvoiceItemDrivenAdapter invoiceItemDrivenAdapter) {
+    return new InvoiceItemService(invoiceItemDrivenAdapter);
   }
 }
