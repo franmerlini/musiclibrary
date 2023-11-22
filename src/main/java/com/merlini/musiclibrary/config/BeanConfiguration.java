@@ -3,24 +3,28 @@ package com.merlini.musiclibrary.config;
 import com.merlini.musiclibrary.adapters.driven.AlbumDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.ArtistDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.EmployeeDrivenAdapter;
+import com.merlini.musiclibrary.adapters.driven.CustomerDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.GenreDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.MediaTypeDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.TrackDrivenAdapter;
 import com.merlini.musiclibrary.adapters.driven.mappers.AlbumPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.ArtistPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.EmployeePersistenceMapper;
+import com.merlini.musiclibrary.adapters.driven.mappers.CustomerPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.GenrePersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.MediaTypePersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.mappers.TrackPersistenceMapper;
 import com.merlini.musiclibrary.adapters.driven.repositories.AlbumRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.ArtistRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.EmployeeRepository;
+import com.merlini.musiclibrary.adapters.driven.repositories.CustomerRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.GenreRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.MediaTypeRepository;
 import com.merlini.musiclibrary.adapters.driven.repositories.TrackRepository;
 import com.merlini.musiclibrary.domain.services.AlbumService;
 import com.merlini.musiclibrary.domain.services.ArtistService;
 import com.merlini.musiclibrary.domain.services.EmployeeService;
+import com.merlini.musiclibrary.domain.services.CustomerService;
 import com.merlini.musiclibrary.domain.services.GenreService;
 import com.merlini.musiclibrary.domain.services.MediaTypeService;
 import com.merlini.musiclibrary.domain.services.TrackService;
@@ -110,5 +114,18 @@ public class BeanConfiguration {
   @Bean
   public EmployeeService employeeService(EmployeeDrivenAdapter employeeDrivenAdapter) {
     return new EmployeeService(employeeDrivenAdapter);
+  }
+
+  @Bean
+  public CustomerDrivenAdapter customerDrivenAdapter(
+      CustomerRepository customerRepository,
+      CustomerPersistenceMapper customerPersistenceMapper
+  ) {
+    return new CustomerDrivenAdapter(customerRepository, customerPersistenceMapper);
+  }
+
+  @Bean
+  public CustomerService customerService(CustomerDrivenAdapter customerDrivenAdapter) {
+    return new CustomerService(customerDrivenAdapter);
   }
 }
