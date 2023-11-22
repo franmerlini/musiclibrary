@@ -170,9 +170,12 @@ public class BeanConfiguration {
   @Bean
   public InvoiceItemDrivenAdapter invoiceItemDrivenAdapter(
       InvoiceItemRepository invoiceItemRepository,
-      InvoiceItemPersistenceMapper invoiceItemPersistenceMapper
+      InvoiceItemPersistenceMapper invoiceItemPersistenceMapper,
+      InvoiceRepository invoiceRepository,
+      TrackRepository trackRepository
   ) {
-    return new InvoiceItemDrivenAdapter(invoiceItemRepository, invoiceItemPersistenceMapper);
+    return new InvoiceItemDrivenAdapter(invoiceItemRepository, invoiceItemPersistenceMapper,
+        invoiceRepository, trackRepository);
   }
 
   @Bean
