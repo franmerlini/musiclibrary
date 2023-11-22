@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Album {
-  private int id;
+  private Integer id;
   private String title;
   private Artist artist;
 }

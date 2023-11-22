@@ -12,6 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtistResponse {
-  private int id;
+  private Integer id;
   private String name;
 }

@@ -26,7 +26,7 @@ public class PlaylistEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "PlaylistId")
-  private int id;
+  private Integer id;
 
   @Basic
   @Column(name = "Name")

@@ -12,6 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediaType {
-  private int id;
+  private Integer id;
   private String name;
 }

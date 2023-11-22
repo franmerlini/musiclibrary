@@ -22,7 +22,7 @@ public class ArtistEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "ArtistId")
-  private int id;
+  private Integer id;
 
   @Basic
   @Column(name = "Name")

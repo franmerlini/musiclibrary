@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Playlist {
-  private int id;
+  private Integer id;
   private String name;
   private List<Track> tracks;
 }

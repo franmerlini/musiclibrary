@@ -22,7 +22,7 @@ public class MediaTypeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "MediaTypeId")
-  private int id;
+  private Integer id;
 
   @Basic
   @Column(name = "Name")
