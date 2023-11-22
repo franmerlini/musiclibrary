@@ -1,4 +1,4 @@
-package com.merlini.musiclibrary.domain.models;
+package com.merlini.musiclibrary.adapters.drivers.responses;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -6,20 +6,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Employee {
+public class EmployeeResponse {
   private Integer id;
   private String lastName;
   private String firstName;
   private String title;
-  private Employee supervisor;
+  private EmployeeResponse supervisor;
   private Date birthDate;
   private Date hireDate;
   private String address;
