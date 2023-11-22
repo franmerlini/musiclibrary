@@ -1,4 +1,4 @@
-package com.merlini.musiclibrary.domain.models;
+package com.merlini.musiclibrary.adapters.drivers.responses;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Invoice {
+public class InvoiceResponse {
   private Integer id;
-  private Customer customer;
+  private CustomerResponse customer;
   private Date invoiceDate;
   private String billingAddress;
   private String billingCity;

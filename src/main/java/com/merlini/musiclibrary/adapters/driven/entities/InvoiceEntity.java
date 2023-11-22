@@ -25,7 +25,7 @@ public class InvoiceEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "InvoiceId")
-  private int id;
+  private Integer id;
 
   @ManyToOne
   @JoinColumn(name = "CustomerId")
