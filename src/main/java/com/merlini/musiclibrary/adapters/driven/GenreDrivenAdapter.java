@@ -21,7 +21,7 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   public Genre createGenre(Genre genre) {
     try {
       GenreEntity genreEntity = genrePersistenceMapper.genreToGenreEntity(genre);
-      GenreEntity savedGenreEntity = this.genreRepository.save(genreEntity);
+      GenreEntity savedGenreEntity = genreRepository.save(genreEntity);
 
       return genrePersistenceMapper.genreEntityToGenre(savedGenreEntity);
     } catch (Exception e) {
@@ -32,7 +32,7 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   @Override
   public Genre getGenreById(Integer id) {
     try {
-      Optional<GenreEntity> genreEntity = this.genreRepository.findById(id);
+      Optional<GenreEntity> genreEntity = genreRepository.findById(id);
 
       if (genreEntity.isEmpty()) {
         throw new EntityNotFoundException("Genre not found.");
@@ -49,14 +49,15 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   @Override
   public Genre updateGenre(Integer id, Genre genre) {
     try {
-      Optional<GenreEntity> genreEntity = this.genreRepository.findById(id);
+      Optional<GenreEntity> genreEntity = genreRepository.findById(id);
 
       if (genreEntity.isEmpty()) {
         throw new EntityNotFoundException("Genre not found.");
       }
 
-      GenreEntity toUpdateGenreEntity = genrePersistenceMapper.genreToGenreEntity(genre);
-      GenreEntity updatedGenreEntity = this.genreRepository.save(toUpdateGenreEntity);
+      genreEntity.get().setName(genre.getName());
+
+      GenreEntity updatedGenreEntity = genreRepository.save(genreEntity.get());
 
       return genrePersistenceMapper.genreEntityToGenre(updatedGenreEntity);
     } catch (EntityNotFoundException e) {
@@ -69,13 +70,13 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   @Override
   public void deleteGenre(Integer id) {
     try {
-      boolean exists = this.genreRepository.existsById(id);
+      boolean exists = genreRepository.existsById(id);
 
       if (!exists) {
         throw new EntityNotFoundException("Genre not found.");
       }
 
-      this.genreRepository.deleteById(id);
+      genreRepository.deleteById(id);
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {
@@ -86,7 +87,7 @@ public class GenreDrivenAdapter implements GenreDrivenPort {
   @Override
   public List<Genre> getAllGenres() {
     try {
-      Iterable<GenreEntity> genreEntities = this.genreRepository.findAll();
+      Iterable<GenreEntity> genreEntities = genreRepository.findAll();
 
       return stream(genreEntities.spliterator(), false)
           .map(genrePersistenceMapper::genreEntityToGenre)

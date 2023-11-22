@@ -21,7 +21,7 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
   public Customer createCustomer(Customer customer) {
     try {
       CustomerEntity customerEntity = customerPersistenceMapper.customerToCustomerEntity(customer);
-      CustomerEntity savedCustomerEntity = this.customerRepository.save(customerEntity);
+      CustomerEntity savedCustomerEntity = customerRepository.save(customerEntity);
 
       return customerPersistenceMapper.customerEntityToCustomer(savedCustomerEntity);
     } catch (Exception e) {
@@ -32,7 +32,7 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
   @Override
   public Customer getCustomerById(Integer id) {
     try {
-      Optional<CustomerEntity> customerEntity = this.customerRepository.findById(id);
+      Optional<CustomerEntity> customerEntity = customerRepository.findById(id);
 
       if (customerEntity.isEmpty()) {
         throw new EntityNotFoundException("Customer not found.");
@@ -49,7 +49,7 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
   @Override
   public Customer updateCustomer(Integer id, Customer customer) {
     try {
-      Optional<CustomerEntity> customerEntity = this.customerRepository.findById(id);
+      Optional<CustomerEntity> customerEntity = customerRepository.findById(id);
 
       if (customerEntity.isEmpty()) {
         throw new EntityNotFoundException("Customer not found.");
@@ -57,7 +57,7 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
 
       CustomerEntity toUpdateCustomerEntity =
           customerPersistenceMapper.customerToCustomerEntity(customer);
-      CustomerEntity updatedCustomerEntity = this.customerRepository.save(toUpdateCustomerEntity);
+      CustomerEntity updatedCustomerEntity = customerRepository.save(toUpdateCustomerEntity);
 
       return customerPersistenceMapper.customerEntityToCustomer(updatedCustomerEntity);
     } catch (EntityNotFoundException e) {
@@ -70,13 +70,13 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
   @Override
   public void deleteCustomer(Integer id) {
     try {
-      boolean exists = this.customerRepository.existsById(id);
+      boolean exists = customerRepository.existsById(id);
 
       if (!exists) {
         throw new EntityNotFoundException("Customer not found.");
       }
 
-      this.customerRepository.deleteById(id);
+      customerRepository.deleteById(id);
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {
@@ -87,7 +87,7 @@ public class CustomerDrivenAdapter implements CustomerDrivenPort {
   @Override
   public List<Customer> getAllCustomers() {
     try {
-      Iterable<CustomerEntity> customerEntities = this.customerRepository.findAll();
+      Iterable<CustomerEntity> customerEntities = customerRepository.findAll();
 
       return stream(customerEntities.spliterator(), false)
           .map(customerPersistenceMapper::customerEntityToCustomer)

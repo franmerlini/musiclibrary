@@ -22,7 +22,7 @@ public class MediaTypeDrivenAdapter implements MediaTypeDrivenPort {
     try {
       MediaTypeEntity mediaTypeEntity =
           mediaTypePersistenceMapper.mediaTypeToMediaTypeEntity(mediaType);
-      MediaTypeEntity savedMediaTypeEntity = this.mediaTypeRepository.save(mediaTypeEntity);
+      MediaTypeEntity savedMediaTypeEntity = mediaTypeRepository.save(mediaTypeEntity);
 
       return mediaTypePersistenceMapper.mediaTypeEntityToMediaType(savedMediaTypeEntity);
     } catch (Exception e) {
@@ -33,7 +33,7 @@ public class MediaTypeDrivenAdapter implements MediaTypeDrivenPort {
   @Override
   public MediaType getMediaTypeById(Integer id) {
     try {
-      Optional<MediaTypeEntity> mediaTypeEntity = this.mediaTypeRepository.findById(id);
+      Optional<MediaTypeEntity> mediaTypeEntity = mediaTypeRepository.findById(id);
 
       if (mediaTypeEntity.isEmpty()) {
         throw new EntityNotFoundException("MediaType not found.");
@@ -50,16 +50,15 @@ public class MediaTypeDrivenAdapter implements MediaTypeDrivenPort {
   @Override
   public MediaType updateMediaType(Integer id, MediaType mediaType) {
     try {
-      Optional<MediaTypeEntity> mediaTypeEntity = this.mediaTypeRepository.findById(id);
+      Optional<MediaTypeEntity> mediaTypeEntity = mediaTypeRepository.findById(id);
 
       if (mediaTypeEntity.isEmpty()) {
         throw new EntityNotFoundException("Media type not found.");
       }
 
-      MediaTypeEntity toUpdateMediaTypeEntity =
-          mediaTypePersistenceMapper.mediaTypeToMediaTypeEntity(mediaType);
-      MediaTypeEntity updatedMediaTypeEntity =
-          this.mediaTypeRepository.save(toUpdateMediaTypeEntity);
+      mediaTypeEntity.get().setName(mediaType.getName());
+
+      MediaTypeEntity updatedMediaTypeEntity = mediaTypeRepository.save(mediaTypeEntity.get());
 
       return mediaTypePersistenceMapper.mediaTypeEntityToMediaType(updatedMediaTypeEntity);
     } catch (EntityNotFoundException e) {
@@ -72,13 +71,13 @@ public class MediaTypeDrivenAdapter implements MediaTypeDrivenPort {
   @Override
   public void deleteMediaType(Integer id) {
     try {
-      boolean exists = this.mediaTypeRepository.existsById(id);
+      boolean exists = mediaTypeRepository.existsById(id);
 
       if (!exists) {
         throw new EntityNotFoundException("Media type not found.");
       }
 
-      this.mediaTypeRepository.deleteById(id);
+      mediaTypeRepository.deleteById(id);
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {
@@ -89,7 +88,7 @@ public class MediaTypeDrivenAdapter implements MediaTypeDrivenPort {
   @Override
   public List<MediaType> getAllMediaTypes() {
     try {
-      Iterable<MediaTypeEntity> mediaTypeEntities = this.mediaTypeRepository.findAll();
+      Iterable<MediaTypeEntity> mediaTypeEntities = mediaTypeRepository.findAll();
 
       return stream(mediaTypeEntities.spliterator(), false)
           .map(mediaTypePersistenceMapper::mediaTypeEntityToMediaType)

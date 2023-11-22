@@ -21,7 +21,7 @@ public class PlaylistDrivenAdapter implements PlaylistDrivenPort {
   public Playlist createPlaylist(Playlist playlist) {
     try {
       PlaylistEntity playlistEntity = playlistPersistenceMapper.playlistToPlaylistEntity(playlist);
-      PlaylistEntity savedPlaylistEntity = this.playlistRepository.save(playlistEntity);
+      PlaylistEntity savedPlaylistEntity = playlistRepository.save(playlistEntity);
 
       return playlistPersistenceMapper.playlistEntityToPlaylist(savedPlaylistEntity);
     } catch (Exception e) {
@@ -32,7 +32,7 @@ public class PlaylistDrivenAdapter implements PlaylistDrivenPort {
   @Override
   public Playlist getPlaylistById(Integer id) {
     try {
-      Optional<PlaylistEntity> playlistEntity = this.playlistRepository.findById(id);
+      Optional<PlaylistEntity> playlistEntity = playlistRepository.findById(id);
 
       if (playlistEntity.isEmpty()) {
         throw new EntityNotFoundException("Playlist not found.");
@@ -49,15 +49,15 @@ public class PlaylistDrivenAdapter implements PlaylistDrivenPort {
   @Override
   public Playlist updatePlaylist(Integer id, Playlist playlist) {
     try {
-      Optional<PlaylistEntity> playlistEntity = this.playlistRepository.findById(id);
+      Optional<PlaylistEntity> playlistEntity = playlistRepository.findById(id);
 
       if (playlistEntity.isEmpty()) {
         throw new EntityNotFoundException("Playlist not found.");
       }
 
-      PlaylistEntity toUpdatePlaylistEntity =
-          playlistPersistenceMapper.playlistToPlaylistEntity(playlist);
-      PlaylistEntity updatedPlaylistEntity = this.playlistRepository.save(toUpdatePlaylistEntity);
+      playlistEntity.get().setName(playlist.getName());
+
+      PlaylistEntity updatedPlaylistEntity = playlistRepository.save(playlistEntity.get());
 
       return playlistPersistenceMapper.playlistEntityToPlaylist(updatedPlaylistEntity);
     } catch (EntityNotFoundException e) {
@@ -70,13 +70,13 @@ public class PlaylistDrivenAdapter implements PlaylistDrivenPort {
   @Override
   public void deletePlaylist(Integer id) {
     try {
-      boolean exists = this.playlistRepository.existsById(id);
+      boolean exists = playlistRepository.existsById(id);
 
       if (!exists) {
         throw new EntityNotFoundException("Playlist not found.");
       }
 
-      this.playlistRepository.deleteById(id);
+      playlistRepository.deleteById(id);
     } catch (EntityNotFoundException e) {
       throw e;
     } catch (Exception e) {
@@ -87,7 +87,7 @@ public class PlaylistDrivenAdapter implements PlaylistDrivenPort {
   @Override
   public List<Playlist> getAllPlaylists() {
     try {
-      Iterable<PlaylistEntity> playlistEntities = this.playlistRepository.findAll();
+      Iterable<PlaylistEntity> playlistEntities = playlistRepository.findAll();
 
       return stream(playlistEntities.spliterator(), false)
           .map(playlistPersistenceMapper::playlistEntityToPlaylist)

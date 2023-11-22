@@ -55,8 +55,9 @@ public class ArtistDrivenAdapter implements ArtistDrivenPort {
         throw new EntityNotFoundException("Artist not found.");
       }
 
-      ArtistEntity toUpdateArtistEntity = artistPersistenceMapper.artistToArtistEntity(artist);
-      ArtistEntity updatedArtistEntity = artistRepository.save(toUpdateArtistEntity);
+      artistEntity.get().setName(artist.getName());
+
+      ArtistEntity updatedArtistEntity = artistRepository.save(artistEntity.get());
 
       return artistPersistenceMapper.artistEntityToArtist(updatedArtistEntity);
     } catch (EntityNotFoundException e) {
